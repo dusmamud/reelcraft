@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1920, initial-scale=1.0">
+  <title>StepGaana · AI Music Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* =========================================================================
+       StepGaana Official Design System — 100% Faithful to Web App
+       Theme: "Paper & Ink & One Bronze Note" (Light Mode Canvas)
+       ========================================================================= */
+    :root {
+      /* Neutrals: Paper & Ink */
+      --paper:          #FFFFFF;  /* Cards, floating panels, elevated surfaces */
+      --field:          #F2F2F0;  /* Canvas background: warm gallery neutral grey */
+      --field-sunk:     #EAEAE7;  /* Sunken wells: progress track / textarea */
+      --field-hover:    #ECECE9;  /* Neutral surface hover */
+
+      --ink:            #14161A;  /* Primary text & primary CTA background */
+      --ink-2:          #5B6068;  /* Secondary text / body explanations */
+      --ink-3:          #676C74;  /* Metadata / tags / timecodes */
+      --ink-soft:       #8E939B;  /* Subtle borders */
+      --ink-4:          #9AA0A7;  /* Placeholders / muted states */
+      --ink-on-dark:    #FAFAF9;  /* Text on dark surfaces */
+
+      --rule:           #E3E3E0;  /* 1px divider */
+      --rule-strong:    #D2D2CE;  /* Emphasized boundaries */
+
+      /* Monochromatic Accent: Musical Instrument Bronze */
+      --bronze:         #8A6428;  /* Inherent accent color */
+      --bronze-lift:    #C9A468;  /* Decorative highlight */
+      --bronze-wash:    rgba(138, 100, 40, .10);
+      --bronze-line:    rgba(138, 100, 40, .28);
+
+      /* Vinyl Record Materials */
+      --vinyl-base:     #14151A;
+      --vinyl-groove:   #1E2027;
+      --vinyl-edge:     #0B0C0F;
+
+      /* Glassmorphism for floating player */
+      --glass-bg:       rgba(255, 255, 255, .90);
+      --glass-blur:     blur(28px) saturate(1.7);
+      --glass-border:   rgba(20, 22, 26, .08);
+
+      /* Shadows */
+      --sh-1:   0 1px 2px rgba(20,22,26,.04), 0 0 0 1px rgba(20,22,26,.05);
+      --sh-2:   0 4px 14px rgba(20,22,26,.07), 0 0 0 1px rgba(20,22,26,.06);
+      --sh-3:   0 16px 40px rgba(20,22,26,.10), 0 2px 8px rgba(20,22,26,.05);
+      --sh-4:   0 32px 80px rgba(20,22,26,.14), 0 4px 14px rgba(20,22,26,.06);
+      --sh-art: 0 6px 18px rgba(20,22,26,.10), 0 1px 3px rgba(20,22,26,.06);
+
+      /* Corner Radii */
+      --r-sm:   8px;
+      --r-md:   12px;
+      --r-lg:   16px;
+      --r-xl:   20px;
+      --r-2xl:  24px;
+      --r-pill: 999px;
+
+      /* Fonts */
+      --font-body:     'Instrument Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-flourish: 'Instrument Serif', Georgia, serif;
+      --font-mono:     'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: var(--field);
+      color: var(--ink);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #root {
+      position: relative;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: var(--field);
+    }
+
+    /* ── Abstract Animated Gallery Background ────────────────────────────── */
+    .ambient-canvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    /* Architectural Studio Dot Grid */
+    .grid-pattern {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(var(--rule-strong) 1.2px, transparent 1.2px);
+      background-size: 40px 40px;
+      opacity: 0.55;
+    }
+
+    /* Smooth Breathing Ambient Light Passes */
+    .ambient-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.65;
+      will-change: transform, opacity;
+    }
+
+    .orb-bronze {
+      width: 900px;
+      height: 900px;
+      background: radial-gradient(circle, rgba(201, 164, 104, 0.20) 0%, rgba(138, 100, 40, 0.06) 55%, transparent 75%);
+      top: 8%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .orb-paper {
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.85) 0%, rgba(242, 242, 240, 0.15) 60%, transparent 80%);
+      bottom: 10%;
+      right: -15%;
+    }
+
+    .orb-warm {
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(138, 100, 40, 0.12) 0%, transparent 70%);
+      top: 50%;
+      left: -20%;
+    }
+
+    /* ── Persistent Header Bar ────────────────────────────────────────────── */
+    .top-header {
+      position: absolute;
+      top: 72px;
+      left: 64px;
+      right: 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 50;
+    }
+
+    .brand-identity {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-avatar {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: var(--paper);
+      padding: 3px;
+      box-shadow: var(--sh-2);
+      border: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand-avatar img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .brand-text-block {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    .brand-flourish {
+      font-family: var(--font-flourish);
+      font-style: italic;
+      font-size: 22px;
+      color: var(--bronze);
+      line-height: 1.05;
+    }
+
+    .engine-badge {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--bronze);
+      font-weight: 700;
+      background: var(--paper);
+      padding: 9px 22px;
+      border-radius: var(--r-pill);
+      box-shadow: var(--sh-1);
+      border: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .engine-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--bronze);
+      box-shadow: 0 0 8px var(--bronze-lift);
+    }
+
+    /* ── Common Scene Clip Layout ─────────────────────────────────────────── */
+    .scene-clip {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0 64px;
+      z-index: 10;
+    }
+
+    /* =========================================================================
+       SCENE 1: THE HOOK (0.0s – 3.8s)
+       ========================================================================= */
+    .hook-eyebrow {
+      font-size: 16px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--bronze);
+      margin-bottom: 28px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .hook-eyebrow::before, .hook-eyebrow::after {
+      content: '';
+      width: 40px;
+      height: 1px;
+      background: var(--bronze);
+      opacity: 0.4;
+    }
+
+    .hook-headline {
+      font-size: 96px;
+      font-weight: 700;
+      line-height: 1.05;
+      text-align: center;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+      margin-bottom: 64px;
+    }
+
+    .hook-headline em {
+      font-family: var(--font-flourish);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--bronze);
+    }
+
+    .hook-turntable-preview {
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: var(--paper);
+      padding: 18px;
+      box-shadow: var(--sh-4);
+      border: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .hook-disc-layer {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background:
+        repeating-radial-gradient(circle at 50% 50%,
+          rgba(255,255,255,0.06) 0 1px, rgba(0,0,0,0) 1px 3px),
+        radial-gradient(circle at 50% 50%,
+          #1B1D23 0 29%, var(--vinyl-base) 62%, var(--vinyl-edge) 100%);
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .hook-label-ring {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: var(--paper);
+      border: 3px solid var(--bronze);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hook-label-ring img {
+      width: 68px;
+      height: 68px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    /* =========================================================================
+       SCENE 2: THE STUDIO & CREATION MODES (3.8s – 8.8s)
+       ========================================================================= */
+    .studio-container {
+      width: 100%;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: 36px;
+      padding: 56px 48px;
+      box-shadow: var(--sh-3);
+      display: flex;
+      flex-direction: column;
+      gap: 34px;
+    }
+
+    .studio-top-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .studio-caption-title {
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--bronze);
+      font-weight: 700;
+    }
+
+    .prompt-box-card {
+      background: var(--field-sunk);
+      border: 1px solid var(--rule-strong);
+      border-radius: 24px;
+      padding: 32px 34px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      box-shadow: inset 0 1px 3px rgba(20,22,26,0.06);
+    }
+
+    .prompt-sparkle-icon {
+      width: 38px;
+      height: 38px;
+      color: var(--bronze);
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .prompt-text-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .prompt-text-live {
+      font-size: 26px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.4;
+      letter-spacing: -0.01em;
+      min-height: 74px;
+    }
+
+    .prompt-cursor {
+      display: inline-block;
+      width: 3px;
+      height: 26px;
+      background: var(--bronze);
+      margin-left: 4px;
+      vertical-align: middle;
+      animation: blinkCursor 0.8s infinite;
+    }
+
+    @keyframes blinkCursor {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .prompt-chips-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .prompt-chip {
+      display: inline-flex;
+      align-items: center;
+      height: 32px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink-2);
+      background: var(--paper);
+      box-shadow: inset 0 0 0 1px var(--rule);
+      padding: 0 14px;
+      border-radius: var(--r-pill);
+    }
+
+    .prompt-chip.active {
+      color: var(--bronze);
+      border-color: var(--bronze);
+      box-shadow: inset 0 0 0 1px var(--bronze);
+    }
+
+    /* 4 Creation Modes (2x2 Grid) */
+    .modes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .mode-item {
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: 24px;
+      padding: 30px 24px;
+      box-shadow: var(--sh-1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .mode-item.active {
+      background: #FAFAF8;
+      border-color: var(--bronze);
+      box-shadow: var(--sh-2), 0 0 0 1px var(--bronze);
+    }
+
+    .mode-icon-circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 18px;
+      background: var(--field-sunk);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink);
+    }
+
+    .mode-item.active .mode-icon-circle {
+      background: var(--bronze-wash);
+      color: var(--bronze);
+    }
+
+    .mode-icon-circle svg {
+      width: 30px;
+      height: 30px;
+    }
+
+    .mode-name {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .mode-subtitle {
+      font-size: 15px;
+      color: var(--ink-2);
+      line-height: 1.4;
+    }
+
+    /* =========================================================================
+       SCENE 3: TURNTABLE & FLOATING PLAYER EXPERIENCE (8.8s – 15.5s)
+       ========================================================================= */
+    .playback-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 44px;
+      width: 100%;
+    }
+
+    /* Real Turntable Deck from player.css */
+    .deck-enclosure {
+      position: relative;
+      width: 580px;
+      height: 580px;
+      background: var(--paper);
+      border-radius: 40px;
+      box-shadow: var(--sh-4);
+      border: 1px solid var(--rule);
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .vinyl-platter {
+      width: 532px;
+      height: 532px;
+      border-radius: 50%;
+      background:
+        repeating-radial-gradient(circle at 50% 50%,
+          rgba(255,255,255,0.055) 0 1px, rgba(0,0,0,0) 1px 3px),
+        radial-gradient(circle at 50% 50%,
+          #1B1D23 0 29%, var(--vinyl-base) 62%, var(--vinyl-edge) 100%);
+      box-shadow: 0 16px 48px rgba(20,22,26,0.3);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Light Sheen Reflection Sweep */
+    .vinyl-reflection {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: linear-gradient(125deg,
+        rgba(0,0,0,0) 33%, rgba(255,255,255,0.12) 44%,
+        rgba(255,255,255,0.04) 48%, rgba(0,0,0,0) 54%);
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    /* Album Art Center Label */
+    .vinyl-label-center {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid var(--bronze);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      z-index: 3;
+    }
+
+    .vinyl-label-center img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .vinyl-center-spindle {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #050506;
+      box-shadow: 0 0 0 3px #2A2A30;
+      z-index: 5;
+    }
+
+    /* Authentic S-Curved Metallic Tonearm */
+    .deck-tonearm-svg {
+      position: absolute;
+      top: -20px;
+      right: -10px;
+      width: 170px;
+      height: 520px;
+      transform-origin: 124px 54px;
+      z-index: 8;
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    /* Floating Player Capsule Card (100% matched to player.css) */
+    .floating-player-card {
+      width: 100%;
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: 32px;
+      padding: 38px 44px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      box-shadow: var(--sh-3);
+    }
+
+    .player-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .player-track-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .player-mini-art {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      object-fit: cover;
+      box-shadow: var(--sh-1);
+    }
+
+    .player-track-titles {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .player-track-name {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .player-track-tags {
+      font-size: 14px;
+      color: var(--ink-3);
+      font-weight: 500;
+    }
+
+    .player-timecode {
+      font-family: var(--font-mono);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--ink-3);
+    }
+
+    .player-headline-quote {
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.22;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    .player-headline-quote em {
+      font-family: var(--font-flourish);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--bronze);
+    }
+
+    /* Deterministic Animated Waveform */
+    .waveform-visualizer {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 68px;
+      background: var(--field-sunk);
+      border-radius: 16px;
+      padding: 0 18px;
+    }
+
+    .wf-bar {
+      flex: 1;
+      background: var(--bronze);
+      border-radius: 4px;
+      height: 32%;
+      transform-origin: center;
+    }
+
+    /* =========================================================================
+       SCENE 4: OUTRO & CALL TO ACTION (15.5s – 20.0s)
+       ========================================================================= */
+    .outro-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: 44px;
+      padding: 72px 56px;
+      box-shadow: var(--sh-4);
+      width: 100%;
+    }
+
+    .outro-brand-disc {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: var(--paper);
+      padding: 6px;
+      border: 3px solid var(--bronze);
+      box-shadow: var(--sh-3);
+      margin-bottom: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .outro-brand-disc img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .outro-title {
+      font-size: 88px;
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1.05;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+
+    .outro-title em {
+      font-family: var(--font-flourish);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--bronze);
+    }
+
+    .outro-subtitle {
+      font-size: 28px;
+      color: var(--ink-2);
+      margin-bottom: 48px;
+      font-weight: 500;
+    }
+
+    .outro-cta-btn {
+      background: var(--ink);
+      color: var(--ink-on-dark);
+      border-radius: var(--r-pill);
+      padding: 22px 64px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      box-shadow: 0 8px 24px rgba(20, 22, 26, 0.22);
+      border: none;
+    }
+
+    .cta-text {
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--ink-on-dark);
+      letter-spacing: -0.01em;
+    }
+
+    .cta-arrow-svg {
+      width: 28px;
+      height: 28px;
+      color: var(--ink-on-dark);
+    }
+
+    .outro-credit {
+      margin-top: 48px;
+      font-size: 17px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--ink-3);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Entry Root Composition Wrapper (HyperFrames Contract) -->
+  <div id="root" class="scene-clip" data-composition-id="root" data-width="1080" data-height="1920" data-start="0" data-duration="20">
+
+    <!-- Abstract Ambient Background -->
+    <div class="ambient-canvas" data-layout-allow-overflow>
+      <div class="ambient-orb orb-bronze" data-layout-allow-overflow></div>
+      <div class="ambient-orb orb-paper" data-layout-allow-overflow></div>
+      <div class="ambient-orb orb-warm" data-layout-allow-overflow></div>
+      <div class="grid-pattern"></div>
+    </div>
+
+    <!-- Persistent Header Bar -->
+    <header class="top-header">
+      <div class="brand-identity">
+        <div class="brand-avatar">
+          <img id="hdr-logo-img" data-start="0" data-duration="20" src="assets/logos/stepgaana.png" alt="StepGaana Logo">
+        </div>
+        <div class="brand-text-block">
+          <b class="brand-name">StepGaana</b>
+          <i class="brand-flourish">Music</i>
+        </div>
+      </div>
+      <div class="engine-badge">
+        <span class="engine-dot"></span>
+        StepAudio 3
+      </div>
+    </header>
+
+    <!-- Multi-Track Audio Layer (Real StepGaana Music + Real SFX Cues) -->
+    <!-- Authentic StepGaana Music Track 1: "Call It Even" Pop Ballad -->
+    <audio id="bg-music" data-start="0" data-duration="20" data-track-index="10" data-volume="0.85" src="assets/music/t-01-call-it-even.mp3"></audio>
+
+    <!-- Sound Effects -->
+    <audio id="sfx-impact" data-start="0.2" data-duration="1.48" data-track-index="11" data-volume="0.8" src="assets/sfx/impact/impactBell_heavy_000.ogg"></audio>
+    <audio id="sfx-key1" data-start="4.2" data-duration="0.3" data-track-index="12" data-volume="0.75" src="assets/sfx/keyboard/keypress-001.wav"></audio>
+    <audio id="sfx-key2" data-start="4.5" data-duration="0.3" data-track-index="13" data-volume="0.75" src="assets/sfx/keyboard/keypress-005.wav"></audio>
+    <audio id="sfx-key3" data-start="4.8" data-duration="0.3" data-track-index="14" data-volume="0.75" src="assets/sfx/keyboard/keypress-012.wav"></audio>
+    <audio id="sfx-switch" data-start="5.5" data-duration="0.31" data-track-index="15" data-volume="0.8" src="assets/sfx/ui/switch1.ogg"></audio>
+    <audio id="sfx-needle" data-start="8.8" data-duration="0.06" data-track-index="16" data-volume="0.85" src="assets/sfx/ui/mouseclick1.ogg"></audio>
+
+    <!-- =======================================================================
+         SCENE 1: THE HOOK (0.0s – 3.8s)
+         ======================================================================= -->
+    <section class="clip scene-clip" id="scene-1" data-start="0" data-duration="3.8">
+      <p class="hook-eyebrow">AI-Powered Music Studio</p>
+      <h1 class="hook-headline">What if you could turn words into <em>music?</em></h1>
+      <div class="hook-turntable-preview" id="hook-preview">
+        <div class="hook-disc-layer" id="hook-disc">
+          <div class="hook-label-ring">
+            <img class="hook-center-img" src="assets/logos/stepgaana.png" alt="StepGaana">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SCENE 2: THE STUDIO & CREATION MODES (3.8s – 8.8s)
+         ======================================================================= -->
+    <section class="clip scene-clip" id="scene-2" data-start="3.8" data-duration="5.0">
+      <div class="studio-container">
+        <div class="studio-top-meta">
+          <span class="studio-caption-title">Describe in words · Hear a complete song</span>
+          <div class="engine-badge"><span class="engine-dot"></span>Generative AI</div>
+        </div>
+
+        <div class="prompt-box-card">
+          <!-- Sparkle Lucide SVG -->
+          <svg class="prompt-sparkle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v4M12 16.5v4M3.5 12h4M16.5 12h4M6.2 6.2l2.6 2.6M15.2 15.2l2.6 2.6M17.8 6.2l-2.6 2.6M8.8 15.2l-2.6 2.6"/>
+          </svg>
+          <div class="prompt-text-wrapper">
+            <div class="prompt-text-live" id="prompt-typewriter">A Chinese pop ballad with a live-room feel, female vocal, G minor, 74 BPM...<span class="prompt-cursor"></span></div>
+            <div class="prompt-chips-row">
+              <span class="prompt-chip active">Pop Ballad</span>
+              <span class="prompt-chip">Female Vocal</span>
+              <span class="prompt-chip">G Minor</span>
+              <span class="prompt-chip">74 BPM</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 Official Creation Modes -->
+        <div class="modes-grid">
+          <!-- Mode 1: Song Creation (Sliders) -->
+          <div class="mode-item active" id="mode-card-1">
+            <div class="mode-icon-circle">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 7h12M19 7h2M3 12h4M11 12h10M3 17h10M17 17h4"/><circle cx="17" cy="7" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="15" cy="17" r="2"/>
+              </svg>
+            </div>
+            <span class="mode-name">Song Creation</span>
+            <span class="mode-subtitle">Text to complete song</span>
+          </div>
+
+          <!-- Mode 2: Instrumental (Music) -->
+          <div class="mode-item" id="mode-card-2">
+            <div class="mode-icon-circle">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="7" cy="18" r="3"/><circle cx="18" cy="15.5" r="3"/><path d="M10 18V6l11-2.5v12"/>
+              </svg>
+            </div>
+            <span class="mode-name">Instrumental</span>
+            <span class="mode-subtitle">Pure musical tracks</span>
+          </div>
+
+          <!-- Mode 3: Vocal to Music (Headphones) -->
+          <div class="mode-item" id="mode-card-3">
+            <div class="mode-icon-circle">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 15v-3a9 9 0 0 1 18 0v3"/><path d="M3 16a2 2 0 0 1 2-2h1v6H5a2 2 0 0 1-2-2Z"/><path d="M21 16a2 2 0 0 0-2-2h-1v6h1a2 2 0 0 0 2-2Z"/>
+              </svg>
+            </div>
+            <span class="mode-name">Vocal to Music</span>
+            <span class="mode-subtitle">Harmonize recordings</span>
+          </div>
+
+          <!-- Mode 4: Music Cover (Disc) -->
+          <div class="mode-item" id="mode-card-4">
+            <div class="mode-icon-circle">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/><path d="M6 12a6 6 0 0 1 6-6"/><path d="M18 12a6 6 0 0 1-6 6"/><circle cx="12" cy="12" r="1.8"/>
+              </svg>
+            </div>
+            <span class="mode-name">Music Cover</span>
+            <span class="mode-subtitle">Style remixing</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SCENE 3: THE VINYL & WAVEFORM EXPERIENCE (8.8s – 15.5s)
+         ======================================================================= -->
+    <section class="clip scene-clip" id="scene-3" data-start="8.8" data-duration="6.7">
+      <div class="playback-stage">
+
+        <!-- Authentic Turntable Deck Enclosure -->
+        <div class="deck-enclosure">
+          <div class="vinyl-platter" id="vinyl-disc-rot">
+            <div class="vinyl-reflection"></div>
+            <div class="vinyl-label-center">
+              <img id="disc-cover-img" data-start="8.8" data-duration="6.7" src="assets/covers/cover-s02-sculpture-01.webp" alt="Call It Even Artwork">
+            </div>
+            <div class="vinyl-center-spindle"></div>
+          </div>
+
+          <!-- Authentic S-Curved Metallic Tonearm -->
+          <svg class="deck-tonearm-svg" id="deck-tonearm" viewBox="0 0 170 520" fill="none">
+            <circle cx="124" cy="54" r="22" fill="#4A4D55" stroke="#8A6428" stroke-width="3"/>
+            <circle cx="124" cy="54" r="9" fill="#14151A"/>
+            <line x1="124" y1="24" x2="124" y2="42" stroke="#767D89" stroke-width="8"/>
+            <rect x="106" y="6" width="36" height="24" rx="8" fill="#31343B" stroke="#767D89" stroke-width="2"/>
+            <path d="M124 78 C124 150 82 188 82 280 C82 365 110 380 110 445" stroke="url(#armMetalRef)" stroke-width="10" stroke-linecap="round"/>
+            <rect x="98" y="442" width="24" height="38" rx="6" fill="#3A3D44" stroke="#8A6428" stroke-width="2"/>
+            <line x1="110" y1="480" x2="110" y2="494" stroke="#C9A468" stroke-width="3"/>
+            <defs>
+              <linearGradient id="armMetalRef" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#4B4F57"/>
+                <stop offset="35%" stop-color="#D6D9DF"/>
+                <stop offset="60%" stop-color="#8E939D"/>
+                <stop offset="100%" stop-color="#33363D"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <!-- Floating Player Capsule & Dancing Waveform (Direct from player.css) -->
+        <div class="floating-player-card">
+          <div class="player-header-row">
+            <div class="player-track-info">
+              <img class="player-mini-art" src="assets/covers/cover-s02-sculpture-01.webp" alt="Artwork">
+              <div class="player-track-titles">
+                <span class="player-track-name">Call It Even</span>
+                <span class="player-track-tags">Pop Ballad · Female Vocal · G Minor</span>
+              </div>
+            </div>
+            <span class="player-timecode">02:33</span>
+          </div>
+
+          <h2 class="player-headline-quote">Describe in words,<br>hear a complete <em>song.</em></h2>
+
+          <div class="waveform-visualizer">
+            <div class="wf-bar"></div><div class="wf-bar"></div><div class="wf-bar"></div>
+            <div class="wf-bar"></div><div class="wf-bar"></div><div class="wf-bar"></div>
+            <div class="wf-bar"></div><div class="wf-bar"></div><div class="wf-bar"></div>
+            <div class="wf-bar"></div><div class="wf-bar"></div><div class="wf-bar"></div>
+            <div class="wf-bar"></div><div class="wf-bar"></div><div class="wf-bar"></div>
+            <div class="wf-bar"></div><div class="wf-bar"></div><div class="wf-bar"></div>
+            <div class="wf-bar"></div><div class="wf-bar"></div><div class="wf-bar"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SCENE 4: OUTRO & CALL TO ACTION (15.5s – 20.0s)
+         ======================================================================= -->
+    <section class="clip scene-clip" id="scene-4" data-start="15.5" data-duration="4.5">
+      <div class="outro-card">
+        <div class="outro-brand-disc">
+          <img id="outro-logo-img" data-start="15.5" data-duration="4.5" src="assets/logos/stepgaana.png" alt="StepGaana">
+        </div>
+        <h1 class="outro-title">StepGaana <em>Music</em></h1>
+        <p class="outro-subtitle">StepAudio 3 AI Music Studio</p>
+
+        <button class="outro-cta-btn">
+          <span class="cta-text">Start Creating · stepgaana.app</span>
+          <svg class="cta-arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+
+        <p class="outro-credit">Built by Dus Mamud</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- GSAP Animation Engine -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    // Scene 1: Hook (0.0s – 3.8s)
+    tl.fromTo("#scene-1", { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.8, ease: "power2.out" }, 0);
+    tl.to("#hook-disc", { rotation: 180, duration: 3.8, ease: "none" }, 0);
+    tl.to("#scene-1", { opacity: 0, scale: 1.05, y: -30, duration: 0.5, ease: "power2.in" }, 3.3);
+
+    // Scene 2: Studio & Mode Cards (3.8s – 8.8s)
+    tl.fromTo("#scene-2", { opacity: 0, y: 40, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "power3.out" }, 3.8);
+    tl.fromTo("#mode-card-1", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.6)" }, 4.6);
+    tl.fromTo("#mode-card-2", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.6)" }, 4.9);
+    tl.fromTo("#mode-card-3", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.6)" }, 5.2);
+    tl.fromTo("#mode-card-4", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.6)" }, 5.5);
+    tl.to("#scene-2", { opacity: 0, y: -30, scale: 0.96, duration: 0.5, ease: "power2.in" }, 8.3);
+
+    // Scene 3: Vinyl Platter & Waveforms (8.8s – 15.5s)
+    tl.fromTo("#scene-3", { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 0.7, ease: "power2.out" }, 8.8);
+    tl.fromTo("#deck-tonearm", { rotation: -16 }, { rotation: 16, duration: 1.3, ease: "power2.out" }, 8.9);
+    tl.to("#vinyl-disc-rot", { rotation: 720, duration: 6.7, ease: "none" }, 8.8);
+
+    // Deterministic Waveform peak pulses (No Math.random())
+    const heights = [0.9, 1.6, 2.4, 1.7, 2.9, 1.3, 2.5, 1.9, 1.0, 2.7, 1.6, 2.2, 1.8, 2.4, 1.2, 2.9, 1.4, 2.1, 1.8, 2.3, 1.1];
+    const bars = document.querySelectorAll(".wf-bar");
+    bars.forEach((bar, i) => {
+      tl.to(bar, {
+        scaleY: heights[i % heights.length],
+        repeat: 8,
+        yoyo: true,
+        duration: 0.35 + (i % 5) * 0.06,
+        ease: "sine.inOut"
+      }, 9.8);
+    });
+    tl.to("#scene-3", { opacity: 0, scale: 1.04, duration: 0.5, ease: "power2.in" }, 15.0);
+
+    // Scene 4: Outro & Punchline (15.5s – 20.0s)
+    tl.fromTo("#scene-4", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.8, ease: "back.out(1.3)" }, 15.5);
+
+    // Register with HyperFrames runtime
+    window.__timelines = window.__timelines || {};
+    window.__timelines["root"] = tl;
+  </script>
+</body>
+</html>

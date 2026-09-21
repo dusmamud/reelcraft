@@ -1,0 +1,236 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = "/reelcraft";
+---
+
+<BaseLayout
+  title="Documentation & Help — Reelcraft CLI & Agent Skill"
+  description="Comprehensive documentation for installing, configuring, and troubleshooting Reelcraft across Google Antigravity, Claude Code, Cursor, and Standalone CLI."
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+      <!-- Sidebar -->
+      <aside class="hidden lg:block lg:col-span-3">
+        <div class="sticky top-24 space-y-6 text-xs">
+          <div>
+            <span class="font-mono font-bold uppercase tracking-wider text-slate-500 block mb-2">Getting Started</span>
+            <ul class="space-y-1 text-slate-400 font-medium">
+              <li><a href="#quick-install" class="block py-1 hover:text-white transition-colors">Quick Install</a></li>
+              <li><a href="#universal-skills" class="block py-1 hover:text-white transition-colors">AI Agent Setup</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="font-mono font-bold uppercase tracking-wider text-slate-500 block mb-2">CLI Reference</span>
+            <ul class="space-y-1 text-slate-400 font-medium">
+              <li><a href="#cli-commands" class="block py-1 hover:text-white transition-colors">Core Commands</a></li>
+              <li><a href="#flags-matrix" class="block py-1 hover:text-white transition-colors">Flags & Options</a></li>
+              <li><a href="#doctor-diagnostics" class="block py-1 hover:text-white transition-colors">Doctor & Diagnostics</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="font-mono font-bold uppercase tracking-wider text-slate-500 block mb-2">Audio & Speech</span>
+            <ul class="space-y-1 text-slate-400 font-medium">
+              <li><a href="#kokoro-tts" class="block py-1 hover:text-white transition-colors">Kokoro-82M (English)</a></li>
+              <li><a href="#edge-tts" class="block py-1 hover:text-white transition-colors">Edge-TTS (Hindi)</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="font-mono font-bold uppercase tracking-wider text-slate-500 block mb-2">Quality & Linting</span>
+            <ul class="space-y-1 text-slate-400 font-medium">
+              <li><a href="#pre-flight" class="block py-1 hover:text-white transition-colors">3-Tier Validation</a></li>
+              <li><a href="#troubleshooting" class="block py-1 hover:text-white transition-colors">Troubleshooting FAQ</a></li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Docs Content -->
+      <article class="lg:col-span-9 space-y-12">
+        <!-- Quick Install -->
+        <section id="quick-install">
+          <span class="text-xs font-mono font-semibold uppercase tracking-wider text-purple-400 mb-2 block">Installation</span>
+          <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mb-4">Reelcraft Documentation</h1>
+          <p class="text-slate-400 text-sm sm:text-base leading-relaxed mb-8">
+            Reelcraft is both a <strong>Universal AI Agent Skill</strong> (for Antigravity, Claude Code, Cursor, Codex) and a <strong>Standalone Node CLI</strong> that can be run in any shell.
+          </p>
+
+          <div class="space-y-4" id="universal-skills">
+            <div class="dev-card p-6">
+              <h3 class="text-base font-bold text-white mb-2">1. Install as Universal AI Agent Skill</h3>
+              <p class="text-xs text-slate-400 mb-3">Install globally across all supported AI coding assistants with the official skills CLI:</p>
+              <div class="code-box p-3 text-xs text-purple-200">
+                <span class="text-emerald-400 font-bold select-none">$</span> npx skills add -g https://github.com/dusmamud/reelcraft --skill reelcraft
+              </div>
+            </div>
+
+            <div class="dev-card p-6">
+              <h3 class="text-base font-bold text-white mb-2">2. Claude Code Plugin Marketplace</h3>
+              <p class="text-xs text-slate-400 mb-3">If you use Claude Code, install directly through the plugin marketplace:</p>
+              <div class="code-box p-3 text-xs text-purple-200 space-y-1">
+                <div><span class="text-emerald-400 font-bold select-none">$</span> /plugin marketplace add dusmamud/reelcraft</div>
+                <div><span class="text-emerald-400 font-bold select-none">$</span> /plugin install reelcraft@reelcraft</div>
+              </div>
+            </div>
+
+            <div class="dev-card p-6">
+              <h3 class="text-base font-bold text-white mb-2">3. Standalone CLI</h3>
+              <p class="text-xs text-slate-400 mb-3">No AI agent required. Run directly with npx or install globally:</p>
+              <div class="code-box p-3 text-xs text-purple-200">
+                <span class="text-emerald-400 font-bold select-none">$</span> npm install -g reelcraft
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CLI Commands -->
+        <section id="cli-commands" class="pt-8 border-t border-white/[0.08]">
+          <span class="text-xs font-mono font-semibold uppercase tracking-wider text-cyan-400 mb-2 block">Command Reference</span>
+          <h2 class="text-2xl font-bold tracking-tight text-white mb-6">Core CLI Commands</h2>
+
+          <div class="space-y-4">
+            <div class="dev-card p-5">
+              <div class="flex items-center justify-between mb-2">
+                <code class="text-sm font-mono font-bold text-purple-300">reelcraft init [name]</code>
+                <span class="px-2 py-0.5 rounded bg-purple-950/60 border border-purple-700/40 text-[10px] font-mono font-semibold text-purple-300">Scaffold</span>
+              </div>
+              <p class="text-xs text-slate-400 mb-3">Scaffolds a new 1080×1920 60fps reel project with editable HTML/CSS/JS and bundled music.</p>
+              <div class="code-box p-2.5 text-xs text-slate-200">
+                <span class="text-emerald-400 select-none">$</span> npx reelcraft init my-reel
+              </div>
+            </div>
+
+            <div class="dev-card p-5">
+              <div class="flex items-center justify-between mb-2">
+                <code class="text-sm font-mono font-bold text-cyan-300">reelcraft preview [path]</code>
+                <span class="px-2 py-0.5 rounded bg-cyan-950/60 border border-cyan-700/40 text-[10px] font-mono font-semibold text-cyan-300">Realtime</span>
+              </div>
+              <p class="text-xs text-slate-400 mb-3">Launches an instant live browser preview with zero render lag.</p>
+              <div class="code-box p-2.5 text-xs text-slate-200">
+                <span class="text-emerald-400 select-none">$</span> npx reelcraft preview my-reel
+              </div>
+            </div>
+
+            <div class="dev-card p-5">
+              <div class="flex items-center justify-between mb-2">
+                <code class="text-sm font-mono font-bold text-emerald-300">reelcraft render [options] [path]</code>
+                <span class="px-2 py-0.5 rounded bg-emerald-950/60 border border-emerald-700/40 text-[10px] font-mono font-semibold text-emerald-300">Export</span>
+              </div>
+              <p class="text-xs text-slate-400 mb-3">Renders finished 1080×1920 MP4, Frame-1 poster thumbnail, and captions.txt.</p>
+              <div class="code-box p-2.5 text-xs text-slate-200">
+                <span class="text-emerald-400 select-none">$</span> npx reelcraft render my-reel
+              </div>
+            </div>
+
+            <div class="dev-card p-5" id="doctor-diagnostics">
+              <div class="flex items-center justify-between mb-2">
+                <code class="text-sm font-mono font-bold text-amber-300">reelcraft doctor</code>
+                <span class="px-2 py-0.5 rounded bg-amber-950/60 border border-amber-700/40 text-[10px] font-mono font-semibold text-amber-300">Health</span>
+              </div>
+              <p class="text-xs text-slate-400 mb-3">Audits system dependencies: Node, Hyperframes, Python, Kokoro, and Edge-TTS.</p>
+              <div class="code-box p-2.5 text-xs text-slate-200">
+                <span class="text-emerald-400 select-none">$</span> npx reelcraft doctor
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Flags Matrix -->
+        <section id="flags-matrix" class="pt-8 border-t border-white/[0.08]">
+          <span class="text-xs font-mono font-semibold uppercase tracking-wider text-amber-400 mb-2 block">Options</span>
+          <h2 class="text-2xl font-bold tracking-tight text-white mb-6">Supported Flags</h2>
+
+          <div class="overflow-x-auto dev-card">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="border-b border-white/[0.08] bg-black/40 text-slate-400 font-mono uppercase">
+                  <th class="p-3.5">Flag</th>
+                  <th class="p-3.5">Values</th>
+                  <th class="p-3.5">Default</th>
+                  <th class="p-3.5">Description</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-white/[0.05] text-slate-300">
+                <tr>
+                  <td class="p-3.5 font-mono text-purple-300">--tone</td>
+                  <td class="p-3.5">luminous, cyberpunk, paper-and-ink, terminal-hacker, apple-minimal</td>
+                  <td class="p-3.5 text-slate-500">Auto</td>
+                  <td class="p-3.5 text-slate-400">Visual aesthetic and rhythm.</td>
+                </tr>
+                <tr>
+                  <td class="p-3.5 font-mono text-purple-300">--format</td>
+                  <td class="p-3.5">vertical (1080×1920), landscape (1920×1080)</td>
+                  <td class="p-3.5 text-slate-500">vertical</td>
+                  <td class="p-3.5 text-slate-400">Target aspect ratio.</td>
+                </tr>
+                <tr>
+                  <td class="p-3.5 font-mono text-purple-300">--duration</td>
+                  <td class="p-3.5">15, 20, 30</td>
+                  <td class="p-3.5 text-slate-500">20s</td>
+                  <td class="p-3.5 text-slate-400">Total duration in seconds.</td>
+                </tr>
+                <tr>
+                  <td class="p-3.5 font-mono text-purple-300">--voice</td>
+                  <td class="p-3.5">flag</td>
+                  <td class="p-3.5 text-slate-500">off</td>
+                  <td class="p-3.5 text-slate-400">Enables AI studio narration.</td>
+                </tr>
+                <tr>
+                  <td class="p-3.5 font-mono text-purple-300">--lang</td>
+                  <td class="p-3.5">en, hi</td>
+                  <td class="p-3.5 text-slate-500">en</td>
+                  <td class="p-3.5 text-slate-400">Selects Kokoro (en) or Edge-TTS (hi).</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Pre-Flight Linting -->
+        <section id="pre-flight" class="pt-8 border-t border-white/[0.08]">
+          <span class="text-xs font-mono font-semibold uppercase tracking-wider text-emerald-400 mb-2 block">Quality & Safety</span>
+          <h2 class="text-2xl font-bold tracking-tight text-white mb-6">3-Tier Pre-Flight Linting</h2>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="dev-card p-5">
+              <span class="text-xs font-mono font-semibold text-purple-400 block mb-1">Tier 1: StaticGuard (&lt;50ms)</span>
+              <h4 class="text-sm font-bold text-white mb-2">AST & Markup Audit</h4>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                Checks for unquoted CSS variables, missing audio files, broken media IDs, and negative duration timers.
+              </p>
+            </div>
+            <div class="dev-card p-5">
+              <span class="text-xs font-mono font-semibold text-cyan-400 block mb-1">Tier 2: Chromium Runtime</span>
+              <h4 class="text-sm font-bold text-white mb-2">Headless Visual Check</h4>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                Spins up headless Chromium, checks 46/46 WCAG AA contrast rules, and detects frame drops before rendering.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Troubleshooting FAQ -->
+        <section id="troubleshooting" class="pt-8 border-t border-white/[0.08]">
+          <span class="text-xs font-mono font-semibold uppercase tracking-wider text-amber-400 mb-2 block">Support</span>
+          <h2 class="text-2xl font-bold tracking-tight text-white mb-6">Troubleshooting FAQ</h2>
+
+          <div class="space-y-4">
+            <div class="dev-card p-5">
+              <h4 class="text-sm font-bold text-white mb-1.5">Q: Why is audio muted in browser preview?</h4>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                Browsers require user interaction before autoplaying audio. Click anywhere on the preview canvas to unmute.
+              </p>
+            </div>
+
+            <div class="dev-card p-5">
+              <h4 class="text-sm font-bold text-white mb-1.5">Q: Where can I submit bug reports?</h4>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                Open an issue at <a href="https://github.com/dusmamud/reelcraft/issues" target="_blank" class="text-purple-400 hover:underline">github.com/dusmamud/reelcraft/issues</a> or email <a href="mailto:dusmamud0@gmail.com" class="text-purple-400 hover:underline">dusmamud0@gmail.com</a>.
+              </p>
+            </div>
+          </div>
+        </section>
+      </article>
+    </div>
+  </div>
+</BaseLayout>

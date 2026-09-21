@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1920, initial-scale=1.0">
+  <title>DusynBlog · Physical AI 2026 (Viral Reel)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* =========================================================================
+       DusynBlog Viral Tech Reel Design System
+       Luminous Light Architecture · Royal Blue Aura & Frosted Glass Glow
+       ========================================================================= */
+    :root {
+      --bg-light:          #F8FAFC;
+      --bg-canvas:         #F1F5F9;
+      --bg-surface:        rgba(255, 255, 255, 0.88);
+      --bg-surface-glass:  rgba(255, 255, 255, 0.92);
+      
+      --accent-blue:       #2563EB;
+      --accent-royal:      #1D4ED8;
+      --accent-glow:       rgba(37, 99, 235, 0.25);
+      --accent-glow-strong: rgba(37, 99, 235, 0.45);
+      --accent-cyan:       #0284C7;
+      --accent-cyan-light: #0EA5E9;
+
+      --text-main:         #0F172A;
+      --text-dim:          #475569;
+      --text-muted:        #64748B;
+      --text-white:        #FFFFFF;
+
+      --border-glass:      rgba(226, 232, 240, 0.9);
+      --border-glow:       rgba(37, 99, 235, 0.35);
+
+      --font-sans:         'Plus Jakarta Sans', sans-serif;
+      --font-mono:         'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: var(--bg-light);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #root {
+      position: relative;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 15%, #FFFFFF 0%, #F8FAFC 50%, #EDF2F7 100%);
+    }
+
+    /* ── Cybernetic Grid & Ambient Lighting ─────────────────────────────────── */
+    .cyber-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .grid-lines {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(37, 99, 235, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(37, 99, 235, 0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.9;
+    }
+
+    .ambient-light {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(140px);
+      will-change: transform, opacity;
+    }
+
+    .light-top {
+      width: 950px;
+      height: 950px;
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.18) 0%, rgba(14, 165, 233, 0.12) 40%, transparent 70%);
+      top: -150px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .light-bottom {
+      width: 850px;
+      height: 850px;
+      background: radial-gradient(circle, rgba(14, 165, 233, 0.18) 0%, rgba(37, 99, 235, 0.12) 50%, transparent 70%);
+      bottom: -100px;
+      right: -100px;
+    }
+
+    /* Scanning Laser Line */
+    .scan-laser {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, rgba(14, 165, 233, 0.8), #2563EB, rgba(14, 165, 233, 0.8), transparent);
+      box-shadow: 0 0 20px rgba(37, 99, 235, 0.5), 0 0 40px rgba(14, 165, 233, 0.35);
+      z-index: 2;
+      opacity: 0.7;
+    }
+
+    /* ── Persistent Top HUD Bar ────────────────────────────────────────────── */
+    .hud-header {
+      position: absolute;
+      top: 72px;
+      left: 64px;
+      right: 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 50;
+    }
+
+    .hud-brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .hud-logo {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--accent-royal);
+      padding: 3px;
+      box-shadow: 0 0 25px rgba(37, 99, 235, 0.35), 0 6px 16px rgba(37, 99, 235, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hud-logo img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+
+    .hud-brand-name {
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+    }
+
+    .hud-tag {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      color: #1D4ED8;
+      background: rgba(37, 99, 235, 0.08);
+      border: 1.5px solid rgba(37, 99, 235, 0.25);
+      box-shadow: 0 0 20px rgba(37, 99, 235, 0.12);
+      padding: 8px 18px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .hud-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-royal);
+      box-shadow: 0 0 10px var(--accent-blue);
+    }
+
+    /* ── Common Scene Clip ─────────────────────────────────────────────────── */
+    .clip {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0 64px;
+      z-index: 10;
+    }
+
+    /* =========================================================================
+       SCENE 1: THE HARD HOOK (0.0s – 5.0s)
+       ========================================================================= */
+    .hook-ticker {
+      font-family: var(--font-mono);
+      font-size: 16px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: #1D4ED8;
+      margin-bottom: 28px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-shadow: 0 0 16px rgba(37, 99, 235, 0.25);
+    }
+
+    .hook-title-line1 {
+      font-size: 102px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.0;
+      color: var(--text-main);
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .hook-title-slam {
+      font-size: 190px;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      line-height: 0.95;
+      color: #1D4ED8;
+      text-shadow: 0 0 45px rgba(37, 99, 235, 0.45), 0 0 90px rgba(14, 165, 233, 0.35), 0 15px 35px rgba(29, 78, 216, 0.2);
+      text-transform: uppercase;
+      margin: 12px 0 36px;
+      text-align: center;
+      transform-origin: center;
+    }
+
+    .hook-sub-capsule {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1.5px solid rgba(37, 99, 235, 0.22);
+      box-shadow: 0 20px 45px -10px rgba(37, 99, 235, 0.18), 0 0 25px rgba(37, 99, 235, 0.1);
+      border-radius: 999px;
+      padding: 16px 36px;
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--text-dim);
+      text-align: center;
+      max-width: 860px;
+      line-height: 1.4;
+    }
+
+    .hook-sub-capsule b {
+      color: var(--text-main);
+    }
+
+    /* =========================================================================
+       SCENE 2: THE PARADIGM SHIFT (5.0s – 11.0s)
+       ========================================================================= */
+    .shift-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .hud-bracket-label {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #1D4ED8;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .shift-heading {
+      font-size: 72px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      text-align: center;
+      color: var(--text-main);
+      margin-bottom: 12px;
+    }
+
+    .shift-heading span {
+      color: #1D4ED8;
+      text-shadow: 0 0 25px rgba(37, 99, 235, 0.3);
+    }
+
+    /* 2024 Dead Card */
+    .hud-card-dead {
+      background: rgba(241, 245, 249, 0.75);
+      border: 1.5px dashed rgba(203, 213, 225, 0.9);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+      border-radius: 28px;
+      padding: 34px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      opacity: 0.7;
+    }
+
+    .dead-tag {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #DC2626;
+      font-weight: 800;
+    }
+
+    .dead-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+
+    /* 2026 Autonomous Agent Card */
+    .hud-card-agent {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(239, 246, 255, 0.94) 100%);
+      border: 2px solid var(--accent-blue);
+      box-shadow: 0 25px 65px -10px rgba(37, 99, 235, 0.25), 0 0 45px rgba(37, 99, 235, 0.2), inset 0 1px 0 #FFFFFF;
+      border-radius: 36px;
+      padding: 48px 44px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .agent-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .agent-pill-tag {
+      background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-royal) 100%);
+      color: var(--text-white);
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      padding: 8px 20px;
+      border-radius: 999px;
+      box-shadow: 0 0 20px rgba(37, 99, 235, 0.35);
+    }
+
+    .agent-title {
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--text-main);
+    }
+
+    .agent-bullet-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .agent-bullet {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text-dim);
+    }
+
+    .bullet-arrow {
+      color: var(--accent-royal);
+      font-weight: 900;
+      font-size: 22px;
+      text-shadow: 0 0 12px rgba(37, 99, 235, 0.4);
+    }
+
+    /* =========================================================================
+       SCENE 3: PHYSICAL AI & ROBOTICS (11.0s – 18.0s)
+       ========================================================================= */
+    .scene-robot-fullbleed {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .robot-bg-img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform-origin: center center;
+    }
+
+    .robot-vignette {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, 
+        rgba(248, 250, 252, 0.85) 0%, 
+        rgba(248, 250, 252, 0.15) 28%, 
+        rgba(248, 250, 252, 0.15) 55%, 
+        rgba(248, 250, 252, 0.95) 86%);
+    }
+
+    .robot-hud-overlay {
+      position: absolute;
+      bottom: 120px;
+      left: 64px;
+      right: 64px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      z-index: 15;
+    }
+
+    .hud-metric-chip {
+      background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-royal) 100%);
+      color: var(--text-white);
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      padding: 8px 20px;
+      border-radius: 999px;
+      width: fit-content;
+      box-shadow: 0 0 25px rgba(37, 99, 235, 0.4);
+    }
+
+    .robot-big-headline {
+      font-size: 76px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      color: var(--text-main);
+      text-shadow: 0 4px 20px rgba(255, 255, 255, 0.8);
+    }
+
+    .robot-floating-pill {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1.5px solid rgba(37, 99, 235, 0.25);
+      border-left: 6px solid var(--accent-blue);
+      border-radius: 20px;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-main);
+      box-shadow: 0 16px 40px -8px rgba(37, 99, 235, 0.2), 0 0 25px rgba(37, 99, 235, 0.12);
+    }
+
+    /* =========================================================================
+       SCENE 4: THE $5,000 WORKFORCE (18.0s – 24.0s)
+       ========================================================================= */
+    .stat-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .stat-number-giant {
+      font-size: 160px;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      line-height: 0.9;
+      color: var(--text-main);
+      text-shadow: 0 12px 35px rgba(37, 99, 235, 0.15);
+    }
+
+    .stat-number-giant span {
+      color: #1D4ED8;
+      font-size: 70px;
+      vertical-align: super;
+      font-weight: 800;
+      text-shadow: 0 0 30px rgba(37, 99, 235, 0.35);
+    }
+
+    .stat-sub-label {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: #1D4ED8;
+      font-weight: 800;
+      text-align: center;
+      margin-top: -16px;
+      text-shadow: 0 0 18px rgba(37, 99, 235, 0.2);
+    }
+
+    .stat-cards-column {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .stat-metric-card {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1.5px solid rgba(226, 232, 240, 0.9);
+      border-radius: 24px;
+      padding: 26px 32px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 12px 36px -6px rgba(37, 99, 235, 0.12), 0 0 15px rgba(37, 99, 235, 0.05);
+    }
+
+    .stat-metric-card.highlight {
+      border-color: var(--accent-blue);
+      background: linear-gradient(90deg, rgba(239, 246, 255, 0.98), rgba(255, 255, 255, 0.92));
+      box-shadow: 0 18px 48px -6px rgba(37, 99, 235, 0.22), 0 0 35px rgba(37, 99, 235, 0.18);
+    }
+
+    .stat-index {
+      font-family: var(--font-mono);
+      font-size: 26px;
+      font-weight: 900;
+      color: #1D4ED8;
+      text-shadow: 0 0 12px rgba(37, 99, 235, 0.3);
+    }
+
+    .stat-metric-text {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.01em;
+    }
+
+    /* =========================================================================
+       SCENE 5: DUSYNBLOG SIGNATURE OUTRO (24.0s – 30.0s)
+       ========================================================================= */
+    .outro-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+    }
+
+    .outro-logo-halo {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: var(--accent-royal);
+      padding: 6px;
+      box-shadow: 0 0 80px rgba(37, 99, 235, 0.45), 0 0 140px rgba(37, 99, 235, 0.3), 0 20px 50px rgba(37, 99, 235, 0.2);
+      margin-bottom: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .outro-logo-halo img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+
+    .outro-brand-text {
+      font-size: 96px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-main);
+      line-height: 1.05;
+      margin-bottom: 14px;
+      text-shadow: 0 0 35px rgba(37, 99, 235, 0.2);
+    }
+
+    .outro-tagline {
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--text-dim);
+      margin-bottom: 48px;
+    }
+
+    .outro-cta-pill {
+      background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-royal) 100%);
+      color: var(--text-white);
+      border-radius: 999px;
+      padding: 24px 68px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      box-shadow: 0 16px 50px -6px rgba(37, 99, 235, 0.45), 0 0 40px rgba(37, 99, 235, 0.35);
+      border: none;
+    }
+
+    .cta-headline {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+
+    .outro-domain {
+      margin-top: 48px;
+      font-family: var(--font-mono);
+      font-size: 18px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #1D4ED8;
+      font-weight: 800;
+      text-shadow: 0 0 16px rgba(37, 99, 235, 0.25);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Root 30-Second Composition (HyperFrames Contract) -->
+  <div id="root" class="clip" data-composition-id="root" data-width="1080" data-height="1920" data-start="0" data-duration="30">
+
+    <!-- Ambient Cyber Grid Background -->
+    <div class="cyber-bg" data-layout-allow-overflow>
+      <div class="grid-lines"></div>
+      <div class="ambient-light light-top" data-layout-allow-overflow></div>
+      <div class="ambient-light light-bottom" data-layout-allow-overflow></div>
+      <div class="scan-laser" id="laser-line"></div>
+    </div>
+
+    <!-- Persistent Top HUD Header -->
+    <header class="hud-header">
+      <div class="hud-brand">
+        <div class="hud-logo">
+          <img src="assets/logos/dusynblog-logo.svg" alt="DusynBlog Logo">
+        </div>
+        <span class="hud-brand-name">DusynBlog</span>
+      </div>
+      <div class="hud-tag">
+        <span class="hud-dot"></span>
+        AI Dispatch · 2026
+      </div>
+    </header>
+
+    <!-- Multi-Track Audio Layer -->
+    <audio id="bg-music" data-start="0" data-duration="30" data-track-index="10" data-volume="0.32" src="assets/music/tech-groove-30s.mp3"></audio>
+    <audio id="vo" data-start="0.6" data-duration="22.89" data-track-index="20" data-volume="1.0" src="assets/voiceover.wav"></audio>
+    <audio id="sfx-impact" data-start="0.2" data-duration="1.48" data-track-index="11" data-volume="0.8" src="assets/sfx/impact-bell.ogg"></audio>
+    <audio id="sfx-key1" data-start="5.5" data-duration="0.3" data-track-index="12" data-volume="0.65" src="assets/sfx/key1.wav"></audio>
+    <audio id="sfx-key2" data-start="6.2" data-duration="0.3" data-track-index="13" data-volume="0.65" src="assets/sfx/key2.wav"></audio>
+    <audio id="sfx-whoosh" data-start="11.0" data-duration="0.31" data-track-index="14" data-volume="0.75" src="assets/sfx/whoosh.ogg"></audio>
+    <audio id="sfx-click1" data-start="18.2" data-duration="0.06" data-track-index="15" data-volume="0.75" src="assets/sfx/click.ogg"></audio>
+    <audio id="sfx-click2" data-start="24.0" data-duration="0.06" data-track-index="16" data-volume="0.75" src="assets/sfx/click.ogg"></audio>
+
+    <!-- =======================================================================
+         SCENE 1: THE HARD HOOK (0.0s – 5.0s)
+         ======================================================================= -->
+    <section class="clip" id="scene-1" data-start="0" data-duration="5.0">
+      <div class="hook-ticker">[ BREAKING INTEL // 2026 ]</div>
+      <h1 class="hook-title-line1">Chatbots Are</h1>
+      <h2 class="hook-title-slam" id="hook-slam">DEAD.</h2>
+      <div class="hook-sub-capsule">
+        Artificial Intelligence has <b>left our screens</b> into the physical world.
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SCENE 2: THE PARADIGM SHIFT (5.0s – 11.0s)
+         ======================================================================= -->
+    <section class="clip" id="scene-2" data-start="5.0" data-duration="6.0">
+      <div class="shift-container">
+        <div class="hud-bracket-label">[ 01 // ARCHITECTURAL INFLECTION ]</div>
+        <h2 class="shift-heading">From Text to <span>Action</span></h2>
+
+        <!-- Dead 2024 Tech -->
+        <div class="hud-card-dead" id="card-dead">
+          <span class="dead-tag">2024 · Passive Chat</span>
+          <span class="dead-title">Waiting for user prompts</span>
+        </div>
+
+        <!-- 2026 Autonomous Agents -->
+        <div class="hud-card-agent" id="card-agent">
+          <div class="agent-header-row">
+            <span class="agent-pill-tag">2026 · Agentic Era</span>
+            <span style="font-family: var(--font-mono); font-size: 14px; color: var(--accent-royal); font-weight: 800; letter-spacing: 0.14em;">AUTONOMOUS</span>
+          </div>
+          <h3 class="agent-title">Autonomous Multi-Agent Teams</h3>
+          <div class="agent-bullet-list">
+            <div class="agent-bullet"><span class="bullet-arrow">▸</span> Multi-step reasoning & self-correction</div>
+            <div class="agent-bullet"><span class="bullet-arrow">▸</span> Real-world tool execution & API calling</div>
+            <div class="agent-bullet"><span class="bullet-arrow">▸</span> End-to-end task completion without human loop</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SCENE 3: PHYSICAL AI & ROBOTICS (11.0s – 18.0s)
+         ======================================================================= -->
+    <section class="clip scene-robot-fullbleed" id="scene-3" data-start="11.0" data-duration="7.0">
+      <img class="robot-bg-img" id="robot-img" src="assets/images/humanoid-tech.jpg" alt="Humanoid Robot Physical AI" data-layout-allow-overflow>
+      <div class="robot-vignette"></div>
+      
+      <div class="robot-hud-overlay">
+        <span class="hud-metric-chip">[ 02 // EMBODIED INTELLIGENCE ]</span>
+        <h2 class="robot-big-headline">The Brain-Body Gap Has Closed</h2>
+        
+        <div class="robot-floating-pill" id="robot-pill-1">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          Vision-Language-Action (VLA) Foundation Models
+        </div>
+
+        <div class="robot-floating-pill" id="robot-pill-2">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><path d="m9 12 2 2 4-4"/></svg>
+          Electronic Skin: Human-Level Tactile Perception
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SCENE 4: THE $5,000 WORKFORCE (18.0s – 24.0s)
+         ======================================================================= -->
+    <section class="clip" id="scene-4" data-start="18.0" data-duration="6.0">
+      <div class="stat-container">
+        <div class="stat-number-giant" id="stat-num">$5,000<span>/mo</span></div>
+        <p class="stat-sub-label">[ ROBOTICS-AS-A-SERVICE IS HERE ]</p>
+
+        <div class="stat-cards-column">
+          <div class="stat-metric-card highlight" id="metric-1">
+            <span class="stat-index">01</span>
+            <span class="stat-metric-text">24/7 Airport & Warehouse Freight Sorting</span>
+          </div>
+
+          <div class="stat-metric-card" id="metric-2">
+            <span class="stat-index">02</span>
+            <span class="stat-metric-text">Sub-Millimeter Surgical & Clinical Assistance</span>
+          </div>
+
+          <div class="stat-metric-card" id="metric-3">
+            <span class="stat-index">03</span>
+            <span class="stat-metric-text">Autonomous Biotech & Materials Discovery</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SCENE 5: DUSYNBLOG SIGNATURE OUTRO (24.0s – 30.0s)
+         ======================================================================= -->
+    <section class="clip" id="scene-5" data-start="24.0" data-duration="6.0">
+      <div class="outro-container">
+        <div class="outro-logo-halo" id="outro-logo">
+          <img src="assets/logos/dusynblog-logo.svg" alt="DusynBlog Logo">
+        </div>
+        <h1 class="outro-brand-text" id="outro-title">DUSYNBLOG</h1>
+        <p class="outro-tagline">Stay Ahead of the Tech Frontier</p>
+
+        <button class="outro-cta-pill" id="outro-btn">
+          <span class="cta-headline">Follow @dusynblog</span>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+
+        <p class="outro-domain">DUSYNBLOG.COM · DAILY DEEP TECH</p>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- GSAP Animation Engine -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    // Laser Line Animation
+    tl.fromTo("#laser-line", { y: 0 }, { y: 1920, duration: 3.5, repeat: 8, ease: "none" }, 0);
+
+    // =========================================================================
+    // SCENE 1: THE HOOK (0.0s – 5.0s)
+    // =========================================================================
+    tl.fromTo("#scene-1 .hook-ticker", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.2);
+    tl.fromTo("#scene-1 .hook-title-line1", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.4);
+    tl.fromTo("#hook-slam", { opacity: 0, scale: 2.2 }, { opacity: 1, scale: 1, duration: 0.65, ease: "back.out(2.0)" }, 0.8);
+    tl.fromTo("#scene-1 .hook-sub-capsule", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 1.5);
+    tl.to("#scene-1", { opacity: 0, scale: 1.08, duration: 0.4, ease: "power2.in" }, 4.6);
+
+    // =========================================================================
+    // SCENE 2: THE SHIFT (5.0s – 11.0s)
+    // =========================================================================
+    tl.fromTo("#scene-2", { opacity: 0, y: 40, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out" }, 5.0);
+    tl.fromTo("#card-dead", { opacity: 0, x: -40 }, { opacity: 0.5, x: 0, duration: 0.4, ease: "power2.out" }, 5.6);
+    tl.fromTo("#card-agent", { opacity: 0, y: 40, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.5)" }, 6.2);
+    tl.fromTo("#card-agent .agent-bullet", { opacity: 0, x: -20 }, { opacity: 1, x: 0, stagger: 0.3, duration: 0.4, ease: "power2.out" }, 7.0);
+    tl.to("#scene-2", { opacity: 0, scale: 1.05, duration: 0.4, ease: "power2.in" }, 10.6);
+
+    // =========================================================================
+    // SCENE 3: PHYSICAL AI & ROBOTICS (11.0s – 18.0s)
+    // =========================================================================
+    tl.fromTo("#scene-3", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, 11.0);
+    tl.fromTo("#robot-img", { scale: 1.0 }, { scale: 1.15, duration: 7.0, ease: "none" }, 11.0);
+    tl.fromTo("#scene-3 .robot-big-headline", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 11.6);
+    tl.fromTo("#robot-pill-1", { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 0.5, ease: "back.out(1.4)" }, 12.4);
+    tl.fromTo("#robot-pill-2", { opacity: 0, x: -50 }, { opacity: 1, x: 0, duration: 0.5, ease: "back.out(1.4)" }, 13.2);
+    tl.to("#scene-3", { opacity: 0, duration: 0.5, ease: "power2.in" }, 17.5);
+
+    // =========================================================================
+    // SCENE 4: THE $5,000 WORKFORCE (18.0s – 24.0s)
+    // =========================================================================
+    tl.fromTo("#scene-4", { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.5, ease: "power3.out" }, 18.0);
+    tl.fromTo("#stat-num", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.8)" }, 18.2);
+    tl.fromTo("#metric-1", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 19.2);
+    tl.fromTo("#metric-2", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 20.0);
+    tl.fromTo("#metric-3", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 20.8);
+    tl.to("#scene-4", { opacity: 0, scale: 1.05, duration: 0.4, ease: "power2.in" }, 23.6);
+
+    // =========================================================================
+    // SCENE 5: DUSYNBLOG SIGNATURE OUTRO (24.0s – 30.0s)
+    // =========================================================================
+    tl.fromTo("#scene-5", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.7, ease: "back.out(1.4)" }, 24.0);
+    tl.fromTo("#outro-logo", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(2.0)" }, 24.2);
+    tl.fromTo("#outro-title", { opacity: 0, scale: 0.85, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: "power2.out" }, 24.4);
+    tl.fromTo("#outro-btn", { scale: 0.95 }, { scale: 1.05, repeat: 3, yoyo: true, duration: 0.8, ease: "sine.inOut" }, 25.5);
+
+    // Register with HyperFrames runtime
+    window.__timelines = window.__timelines || {};
+    window.__timelines["root"] = tl;
+  </script>
+</body>
+</html>

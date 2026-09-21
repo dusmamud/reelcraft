@@ -1,0 +1,15 @@
+{
+  "name": "reelcraft",
+  "description": "Turn any codebase, product, or blog post into a high-retention 9:16 vertical viral reel using Hyperframes.",
+  "owner": {
+    "name": "Dus Mamud",
+    "url": "https://github.com/dusmamud/reelcraft"
+  },
+  "plugins": [
+    {
+      "name": "reelcraft",
+      "source": "./",
+      "description": "Generate viral 9:16 vertical reels, shorts, and TikToks for your project with one command."
+    }
+  ]
+}

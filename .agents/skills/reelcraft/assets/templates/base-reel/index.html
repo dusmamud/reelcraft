@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1920, initial-scale=1.0">
+  <title>Reelcraft Composition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-base: #0a0e17;
+      --bg-card: rgba(18, 26, 43, 0.75);
+      --bg-card-border: rgba(255, 255, 255, 0.12);
+      --primary: #3b82f6;
+      --primary-glow: rgba(59, 130, 246, 0.4);
+      --accent: #60a5fa;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --safe-top: 140px;
+      --safe-bottom: 280px;
+      --safe-right: 140px;
+      --safe-left: 80px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 1080px;
+      height: 1920px;
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Ambient Background Glows */
+    .glow-sphere-1 {
+      position: absolute;
+      top: 15%;
+      left: 20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--primary-glow) 0%, rgba(59, 130, 246, 0) 70%);
+      filter: blur(80px);
+      z-index: 0;
+      opacity: 0.6;
+      animation: pulseGlow 6s ease-in-out infinite alternate;
+    }
+
+    .glow-sphere-2 {
+      position: absolute;
+      bottom: 20%;
+      right: 10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(147, 51, 234, 0.3) 0%, rgba(147, 51, 234, 0) 70%);
+      filter: blur(90px);
+      z-index: 0;
+      opacity: 0.5;
+    }
+
+    @keyframes pulseGlow {
+      0% { transform: scale(1) translate(0, 0); }
+      100% { transform: scale(1.15) translate(40px, 30px); }
+    }
+
+    /* Safe Content Canvas */
+    .viewport-canvas {
+      position: absolute;
+      top: var(--safe-top);
+      bottom: var(--safe-bottom);
+      left: var(--safe-left);
+      right: var(--safe-right);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Top Brand Tag */
+    .brand-pill {
+      position: absolute;
+      top: var(--safe-top);
+      left: var(--safe-left);
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 24px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--bg-card-border);
+      border-radius: 9999px;
+      backdrop-filter: blur(16px);
+      z-index: 20;
+    }
+
+    .brand-dot {
+      width: 14px;
+      height: 14px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 12px #10b981;
+    }
+
+    .brand-text {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-main);
+    }
+
+    /* Scene Containers */
+    .scene {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(30px) scale(0.98);
+    }
+
+    .scene.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Typography Utilities */
+    .hook-badge {
+      display: inline-block;
+      align-self: flex-start;
+      padding: 8px 20px;
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      border-radius: 8px;
+      font-size: 26px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 28px;
+      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
+    }
+
+    .main-headline {
+      font-size: 76px;
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 32px;
+    }
+
+    .headline-highlight {
+      background: linear-gradient(135deg, #60a5fa 0%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .sub-copy {
+      font-size: 34px;
+      line-height: 1.4;
+      color: var(--text-muted);
+      max-width: 780px;
+    }
+
+    /* Glassmorphism Feature Card */
+    .glass-card {
+      background: var(--bg-card);
+      border: 1px solid var(--bg-card-border);
+      border-radius: 32px;
+      padding: 48px;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
+      margin-top: 32px;
+    }
+
+    .metric-row {
+      display: flex;
+      gap: 32px;
+      margin-top: 32px;
+    }
+
+    .metric-box {
+      flex: 1;
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .metric-val {
+      font-size: 54px;
+      font-weight: 800;
+      color: #60a5fa;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .metric-lbl {
+      font-size: 22px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      font-weight: 600;
+    }
+
+    /* Code Card Showcase */
+    .code-window {
+      background: #0d131f;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 24px;
+      overflow: hidden;
+      margin-top: 32px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .window-header {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .circle {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+    }
+    .red { background: #ef4444; }
+    .yellow { background: #eab308; }
+    .green { background: #22c55e; }
+
+    .window-title {
+      font-size: 20px;
+      color: #94a3b8;
+      font-family: 'JetBrains Mono', monospace;
+      margin-left: 12px;
+    }
+
+    .code-body {
+      padding: 36px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 28px;
+      line-height: 1.6;
+      color: #e2e8f0;
+    }
+
+    .keyword { color: #f43f5e; font-weight: 700; }
+    .fn { color: #60a5fa; }
+    .str { color: #34d399; }
+    .comment { color: #64748b; font-style: italic; }
+
+    /* Sound Cue Audio Elements (Triggered during recording) */
+    audio { display: none; }
+  </style>
+</head>
+<body>
+
+  <!-- Background Ambience -->
+  <div class="glow-sphere-1"></div>
+  <div class="glow-sphere-2"></div>
+
+  <!-- Persistent Brand Badge -->
+  <div class="brand-pill">
+    <div class="brand-dot"></div>
+    <span class="brand-text">REELCRAFT</span>
+  </div>
+
+  <!-- Content Canvas within Safe Area -->
+  <div class="viewport-canvas">
+
+    <!-- Scene 1: The Hook (0 - 3s) -->
+    <div class="scene active" id="scene-1">
+      <div class="hook-badge">🔥 Stop Building Like This</div>
+      <h1 class="main-headline">
+        Chatbots Are <span class="headline-highlight">Dead</span>.<br>
+        Autonomous Agents Took Over.
+      </h1>
+      <p class="sub-copy">
+        In 2026, software doesn't wait for your prompt. It builds, verifies, and ships on its own.
+      </p>
+    </div>
+
+    <!-- Scene 2: The Breakthrough / Solution (3 - 9s) -->
+    <div class="scene" id="scene-2">
+      <div class="hook-badge">⚡ The 2026 Standard</div>
+      <h1 class="main-headline">
+        Zero Prompting.<br>
+        <span class="headline-highlight">Pure Execution.</span>
+      </h1>
+      <div class="glass-card">
+        <p class="sub-copy" style="font-size: 28px; color: #f8fafc;">
+          Autonomous agents read codebase context, formulate execution plans, and close PRs without human intervention.
+        </p>
+        <div class="metric-row">
+          <div class="metric-box">
+            <div class="metric-val">10x</div>
+            <div class="metric-lbl">Faster Ship Cycle</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-val">100%</div>
+            <div class="metric-lbl">Deterministic</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scene 3: Code / Tech Showcase (9 - 16s) -->
+    <div class="scene" id="scene-3">
+      <div class="hook-badge">💻 Under The Hood</div>
+      <h1 class="main-headline">
+        One Command.<br>
+        <span class="headline-highlight">Full Verification.</span>
+      </h1>
+      <div class="code-window">
+        <div class="window-header">
+          <div class="circle red"></div>
+          <div class="circle yellow"></div>
+          <div class="circle green"></div>
+          <span class="window-title">agent_executor.ts</span>
+        </div>
+        <div class="code-body">
+          <span class="keyword">await</span> agent.<span class="fn">executeWorkflow</span>({<br>
+          &nbsp;&nbsp;task: <span class="str">"build_viral_video"</span>,<br>
+          &nbsp;&nbsp;verify: <span class="keyword">true</span>,<br>
+          &nbsp;&nbsp;retries: <span class="str">0</span><br>
+          });<br>
+          <span class="comment">// ➔ 0 errors, rendered 60fps</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scene 4: Outro / CTA (16 - 22s) -->
+    <div class="scene" id="scene-4">
+      <div class="hook-badge">🚀 Next Step</div>
+      <h1 class="main-headline">
+        Stay Ahead of the <span class="headline-highlight">AI Curve</span>.
+      </h1>
+      <div class="glass-card" style="text-align: center; padding: 60px 40px;">
+        <h2 style="font-size: 48px; margin-bottom: 20px; font-weight: 800;">Follow For Daily Deep Dives</h2>
+        <p class="sub-copy" style="margin: 0 auto; font-size: 26px;">
+          Link in bio • Open-source on GitHub
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Timeline Sequence for 60fps Hyperframes render
+    const scenes = [
+      { id: 'scene-1', start: 0, end: 3.5 },
+      { id: 'scene-2', start: 3.5, end: 9.5 },
+      { id: 'scene-3', start: 9.5, end: 16.5 },
+      { id: 'scene-4', start: 16.5, end: 22.0 }
+    ];
+
+    function updateTimeline(currentTimeSeconds) {
+      scenes.forEach(s => {
+        const el = document.getElementById(s.id);
+        if (currentTimeSeconds >= s.start && currentTimeSeconds < s.end) {
+          el.classList.add('active');
+        } else {
+          el.classList.remove('active');
+        }
+      });
+    }
+
+    // For interactive browser preview testing
+    let timer = 0;
+    setInterval(() => {
+      timer += 0.1;
+      if (timer > 22.0) timer = 0;
+      updateTimeline(timer);
+    }, 100);
+  </script>
+</body>
+</html>

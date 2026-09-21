@@ -1,0 +1,43 @@
+{
+  "name": "reelcraft",
+  "version": "0.1.0",
+  "description": "Turn any codebase, product, or blog into a high-retention 9:16 vertical viral reel using Hyperframes.",
+  "bin": {
+    "reelcraft": "./bin/reelcraft.js"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "node ./bin/reelcraft.js",
+    "preview": "node ./bin/reelcraft.js preview",
+    "render": "node ./bin/reelcraft.js render"
+  },
+  "keywords": [
+    "reelcraft",
+    "hyperframes",
+    "reels",
+    "shorts",
+    "tiktok",
+    "video-generator",
+    "claude-code",
+    "agent-skills",
+    "vertical-video",
+    "developer-tools"
+  ],
+  "author": "Dus Mamud <dusmamud0@gmail.com> (https://github.com/dusmamud)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dusmamud/reelcraft.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dusmamud/reelcraft/issues"
+  },
+  "homepage": "https://github.com/dusmamud/reelcraft#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0"
+  }
+}

@@ -1,0 +1,14 @@
+{
+	"pid": 10128,
+	"port": 4322,
+	"url": "http://localhost:4322",
+	"urls": {
+		"local": [
+			"http://localhost:4322/reelcraft"
+		],
+		"network": [],
+		"networkInterfaceNames": []
+	},
+	"background": true,
+	"startedAt": "2026-09-21T12:55:18.455Z"
+}
