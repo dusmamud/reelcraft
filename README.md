@@ -15,6 +15,7 @@
 </p>
 
 <p align="center">
+  <a href="https://dusmamud.github.io/reelcraft/"><img src="https://img.shields.io/badge/Live%20Showcase-Online-00DC82.svg?logo=astro&logoColor=white" alt="Live Showcase"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
   <a href="#"><img src="https://img.shields.io/badge/Alternative%20to-%2Fbrag-8B5CF6.svg" alt="Alternative to /brag"></a>
   <a href="#"><img src="https://img.shields.io/badge/Format-9%3A16%20Vertical%20%26%2016%3A9-6366F1.svg" alt="Format: 9:16 Vertical & 16:9"></a>
@@ -26,14 +27,14 @@
 </p>
 
 <p align="center">
+  <a href="https://dusmamud.github.io/reelcraft/">🌐 Live Demo</a> •
   <a href="#-real-rendered-video-showcase">Video Showcase</a> •
   <a href="#-brand-assets">Brand Assets</a> •
   <a href="#-quick-install">Quick Install</a> •
   <a href="#-how-to-use">How To Use</a> •
   <a href="#-cli-commands">CLI Reference</a> •
   <a href="CONTRIBUTING.md">Contributing</a> •
-  <a href="SECURITY.md">Security</a> •
-  <a href="CODE_OF_CONDUCT.md">Code of Conduct</a>
+  <a href="SECURITY.md">Security</a>
 </p>
 
 ---
@@ -43,6 +44,43 @@
 **Reelcraft** is an intelligent AI Agent Skill and standalone CLI engine designed as a **studio-grade, high-retention alternative to `/brag`**. It transforms code repositories, technical launch posts, CLI tools, and architecture diagrams into **cinematic, algorithmic 9:16 vertical videos** (for Instagram Reels, TikTok, and YouTube Shorts) as well as 16:9 widescreen showcases.
 
 Powered by [Hyperframes](https://hyperframes.heygen.com/), Reelcraft autonomously inspects your project to determine light/dark themes, extracts brand hex colors and vector logos, scripts a high-retention 4-beat storyboard, generates native studio narration, and outputs 1080×1920 60fps MP4 videos — complete with Frame-1 poster thumbnails, captions, and viral hashtags.
+
+### 📐 Autonomous Video Generation Pipeline
+
+```mermaid
+flowchart TD
+    subgraph IN["1. Raw Codebase & Product Input"]
+        A["Local Repo / GitHub URL"] --> B["Theme & Asset Detection"]
+        C["README / Launch Post"] --> B
+        D["Architecture & CLI Schema"] --> B
+    end
+
+    subgraph ENGINE["2. Reelcraft Intelligence Engine"]
+        B --> E["Brand Color & Logo Extractor"]
+        B --> F["4-Beat Storyboard Scripting"]
+        F --> G["Hook: 0-3s Curiosity Spike"]
+        F --> H["Mechanism: How It Works"]
+        F --> I["Interactive Demo: Code & UI"]
+        F --> J["CTA: Payoff & GitHub Star"]
+    end
+
+    subgraph AUDIO["3. Studio Audio & Voiceover"]
+        G & H & I & J --> K["Kokoro-82M / Edge-TTS Neural Voice"]
+        K --> L["Beat-Synced Music & SFX Audio Cues"]
+    end
+
+    subgraph RENDER["4. 60fps Hyperframes Render Canvas"]
+        E & L --> M["Headless Chromium 60fps Canvas"]
+        M --> N["Sub-Frame Motion Graphics & Captions"]
+        N --> O["Frame-1 High-CTR Poster JPG"]
+        N --> P["1080x1920 9:16 Vertical MP4"]
+    end
+
+    style IN fill:#0d1117,stroke:#30363d,stroke-width:1px,color:#c9d1d9
+    style ENGINE fill:#161b22,stroke:#8b5cf6,stroke-width:2px,color:#f0f6fc
+    style AUDIO fill:#0d1117,stroke:#10b981,stroke-width:1px,color:#c9d1d9
+    style RENDER fill:#161b22,stroke:#6366f1,stroke-width:2px,color:#f0f6fc
+```
 
 ---
 
