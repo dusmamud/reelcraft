@@ -36,16 +36,16 @@ jobs:
           node ./bin/reelcraft.js doctor
 
   test-site-build:
-    name: Test Showcase Site Build (Node 20.x)
+    name: Test Showcase Site Build (Node 22.x)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js 20.x
+      - name: Setup Node.js 22.x
         uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 22.x
 
       - name: Install site dependencies
         run: |
