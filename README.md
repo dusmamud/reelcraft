@@ -3,17 +3,25 @@
 </p>
 
 <p align="center">
-  <img src="assets/reelcraft.png" alt="Reelcraft" width="320" height="55" style="display: block; margin: 20px auto 14px auto;">
+  <a href="https://github.com/dusmamud/reelcraft">
+    <img src="assets/reelcraft.png" alt="Reelcraft Logo" width="340">
+  </a>
+</p>
+
+<p align="center">
   <strong>You built the code. Now make it go viral.</strong><br>
-  Turn any codebase, product, or blog post into a high-retention <strong>9:16 vertical viral video</strong> in seconds.
+  Turn any codebase, product, or blog post into a high-retention <strong>9:16 vertical viral video</strong> in seconds.<br>
+  <em>The studio-grade, open-source alternative to <code>/brag</code> for developers.</em>
 </p>
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
-  <a href="#"><img src="https://img.shields.io/badge/Format-9%3A16%20Vertical%20%26%2016%3A9-8B5CF6.svg" alt="Format: 9:16 Vertical & 16:9"></a>
+  <a href="#"><img src="https://img.shields.io/badge/Alternative%20to-%2Fbrag-8B5CF6.svg" alt="Alternative to /brag"></a>
+  <a href="#"><img src="https://img.shields.io/badge/Format-9%3A16%20Vertical%20%26%2016%3A9-6366F1.svg" alt="Format: 9:16 Vertical & 16:9"></a>
   <a href="https://hyperframes.heygen.com/"><img src="https://img.shields.io/badge/Render-Hyperframes%2060fps-black.svg" alt="Powered by Hyperframes"></a>
   <a href="#"><img src="https://img.shields.io/badge/Voice-Kokoro%20%2B%20Edge--TTS-emerald.svg" alt="Voice: Kokoro + Edge-TTS"></a>
   <a href="#"><img src="https://img.shields.io/badge/Test%20Suites-5%20Rendered%20Videos-blueviolet.svg" alt="Test Suites"></a>
+  <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome"></a>
   <a href="https://github.com/dusmamud"><img src="https://img.shields.io/badge/Author-Dus%20Mamud-orange.svg" alt="Author: Dus Mamud"></a>
 </p>
 
@@ -23,15 +31,16 @@
   <a href="#-quick-install">Quick Install</a> •
   <a href="#-how-to-use">How To Use</a> •
   <a href="#-cli-commands">CLI Reference</a> •
-  <a href="#-pre-flight-linting--diagnostics">Linting & Validation</a> •
-  <a href="#-author--license">Author</a>
+  <a href="CONTRIBUTING.md">Contributing</a> •
+  <a href="SECURITY.md">Security</a> •
+  <a href="CODE_OF_CONDUCT.md">Code of Conduct</a>
 </p>
 
 ---
 
 ## ⚡ Overview
 
-**Reelcraft** is an intelligent AI Agent Skill and standalone CLI engine that transforms code repositories, technical launch posts, CLI tools, and architecture diagrams into **studio-grade, algorithmic 9:16 vertical videos** (for Instagram Reels, TikTok, and YouTube Shorts) as well as 16:9 widescreen showcases.
+**Reelcraft** is an intelligent AI Agent Skill and standalone CLI engine designed as a **studio-grade, high-retention alternative to `/brag`**. It transforms code repositories, technical launch posts, CLI tools, and architecture diagrams into **cinematic, algorithmic 9:16 vertical videos** (for Instagram Reels, TikTok, and YouTube Shorts) as well as 16:9 widescreen showcases.
 
 Powered by [Hyperframes](https://hyperframes.heygen.com/), Reelcraft autonomously inspects your project to determine light/dark themes, extracts brand hex colors and vector logos, scripts a high-retention 4-beat storyboard, generates native studio narration, and outputs 1080×1920 60fps MP4 videos — complete with Frame-1 poster thumbnails, captions, and viral hashtags.
 
@@ -319,6 +328,17 @@ E:\Tools\reelcraft/
 │   └── assets/                    # Royalty-free music library and SFX suite
 └── tests/                         # 5 production-grade test suites (01 to 05 with rendered MP4s)
 ```
+
+---
+
+## 🤝 Community, Security & Contributing
+
+Reelcraft is an open-source project welcoming developers, designers, and AI creators worldwide:
+
+- 🤝 **[CONTRIBUTING.md](CONTRIBUTING.md)** — Guide on reporting bugs, requesting features, submitting pull requests, and setting up local development.
+- 🛡️ **[SECURITY.md](SECURITY.md)** — Security policies, supported versions, and responsible vulnerability disclosure process.
+- 📜 **[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)** — Contributor Covenant pledge and community standards.
+- 💬 **[SUPPORT.md](SUPPORT.md)** — Where to get help, community discussions, and troubleshooting guides.
 
 ---
 

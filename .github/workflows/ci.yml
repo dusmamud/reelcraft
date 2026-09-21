@@ -1,0 +1,40 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-cli-and-site:
+    name: Test CLI & Showcase Build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
+        node-version: [ 18.x, 20.x ]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install root dependencies
+        run: npm ci || npm install
+
+      - name: Test CLI entrypoint & doctor
+        run: |
+          node ./bin/reelcraft.js --help
+          node ./bin/reelcraft.js doctor
+
+      - name: Install & build Astro showcase site
+        run: |
+          cd site
+          npm ci || npm install
+          npm run build
