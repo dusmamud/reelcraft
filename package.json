@@ -5,6 +5,15 @@
   "bin": {
     "reelcraft": "./bin/reelcraft.js"
   },
+  "files": [
+    "bin",
+    "skills",
+    "scripts",
+    "assets",
+    "README.md",
+    "LICENSE",
+    "PRODUCT.md"
+  ],
   "type": "module",
   "scripts": {
     "start": "node ./bin/reelcraft.js",
