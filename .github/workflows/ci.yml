@@ -7,13 +7,14 @@ on:
     branches: [ main ]
 
 jobs:
-  test-cli-and-site:
-    name: Test CLI & Showcase Build
+  test-cli:
+    name: Test CLI Engine (${{ matrix.os }}, Node ${{ matrix.node-version }})
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os: [ ubuntu-latest, windows-latest ]
-        node-version: [ 18.x, 20.x ]
+        node-version: [ 18.x, 20.x, 22.x ]
 
     steps:
       - name: Checkout repository
@@ -23,18 +24,35 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
 
       - name: Install root dependencies
-        run: npm ci || npm install
+        run: npm install
 
-      - name: Test CLI entrypoint & doctor
+      - name: Test CLI entrypoint & commands
         run: |
           node ./bin/reelcraft.js --help
+          node ./bin/reelcraft.js --version
+          node ./bin/reelcraft.js hooks
           node ./bin/reelcraft.js doctor
 
-      - name: Install & build Astro showcase site
+  test-site-build:
+    name: Test Showcase Site Build (Node 20.x)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+
+      - name: Install site dependencies
         run: |
           cd site
-          npm ci || npm install
+          npm install
+
+      - name: Build Astro showcase site
+        run: |
+          cd site
           npm run build
