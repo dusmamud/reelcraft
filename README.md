@@ -16,6 +16,7 @@
 
 <p align="center">
   <a href="https://www.npmjs.com/package/reelcraft"><img src="https://img.shields.io/npm/v/reelcraft.svg?color=cb3837&logo=npm" alt="npm version"></a>
+  <a href="https://github.com/dusmamud/reelcraft/releases"><img src="https://img.shields.io/github/v/release/dusmamud/reelcraft?color=8B5CF6&logo=github" alt="GitHub Release"></a>
   <a href="https://dusmamud.github.io/reelcraft/"><img src="https://img.shields.io/badge/Live%20Showcase-Online-00DC82.svg?logo=astro&logoColor=white" alt="Live Showcase"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
   <a href="#"><img src="https://img.shields.io/badge/Alternative%20to-%2Fbrag-8B5CF6.svg" alt="Alternative to /brag"></a>
