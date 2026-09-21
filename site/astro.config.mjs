@@ -16,8 +16,12 @@ export default defineConfig({
     plugins: [
       tailwindcss()
     ],
+    build: {
+      emptyOutDir: false
+    },
     ssr: {
       noExternal: ['three', 'lucide-react']
     }
   }
 });
+

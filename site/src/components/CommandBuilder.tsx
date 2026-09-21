@@ -76,29 +76,45 @@ export default function CommandBuilder() {
               <button
                 type="button"
                 onClick={() => setVoice('en')}
-                className={`w-full text-left px-3 py-2 rounded text-xs font-medium border transition-colors ${
+                className={`w-full text-left px-3 py-2 rounded text-xs font-medium border transition-colors flex items-center gap-2 cursor-pointer ${
                   voice === 'en' ? 'bg-purple-950/50 border-purple-500 text-purple-200' : 'bg-white/[0.02] border-white/[0.06] text-slate-400 hover:text-slate-200'
                 }`}
               >
-                🎙️ English (Kokoro-82M)
+                <svg className="w-3.5 h-3.5 text-purple-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                  <line x1="12" y1="19" x2="12" y2="23"></line>
+                  <line x1="8" y1="23" x2="16" y2="23"></line>
+                </svg>
+                <span>English (Kokoro-82M)</span>
               </button>
               <button
                 type="button"
                 onClick={() => setVoice('hi')}
-                className={`w-full text-left px-3 py-2 rounded text-xs font-medium border transition-colors ${
+                className={`w-full text-left px-3 py-2 rounded text-xs font-medium border transition-colors flex items-center gap-2 cursor-pointer ${
                   voice === 'hi' ? 'bg-purple-950/50 border-purple-500 text-purple-200' : 'bg-white/[0.02] border-white/[0.06] text-slate-400 hover:text-slate-200'
                 }`}
               >
-                🇮🇳 Hindi (Edge-TTS)
+                <svg className="w-3.5 h-3.5 text-amber-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                <span>Hindi (Edge-TTS)</span>
               </button>
               <button
                 type="button"
                 onClick={() => setVoice('off')}
-                className={`w-full text-left px-3 py-2 rounded text-xs font-medium border transition-colors ${
+                className={`w-full text-left px-3 py-2 rounded text-xs font-medium border transition-colors flex items-center gap-2 cursor-pointer ${
                   voice === 'off' ? 'bg-purple-950/50 border-purple-500 text-purple-200' : 'bg-white/[0.02] border-white/[0.06] text-slate-400 hover:text-slate-200'
                 }`}
               >
-                🔇 No Voice (Music Only)
+                <svg className="w-3.5 h-3.5 text-slate-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                  <line x1="23" y1="9" x2="17" y2="15"></line>
+                  <line x1="17" y1="9" x2="23" y2="15"></line>
+                </svg>
+                <span>No Voice (Music Only)</span>
               </button>
             </div>
           </div>
@@ -127,20 +143,29 @@ export default function CommandBuilder() {
               <button
                 type="button"
                 onClick={() => setFormat('vertical')}
-                className={`w-full text-left px-3 py-2 rounded text-xs font-medium border transition-colors ${
+                className={`w-full text-left px-3 py-2 rounded text-xs font-medium border transition-colors flex items-center gap-2 cursor-pointer ${
                   format === 'vertical' ? 'bg-purple-950/50 border-purple-500 text-purple-200' : 'bg-white/[0.02] border-white/[0.06] text-slate-400 hover:text-slate-200'
                 }`}
               >
-                📱 9:16 Vertical (Shorts/Reels)
+                <svg className="w-3.5 h-3.5 text-purple-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                  <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                </svg>
+                <span>9:16 Vertical (Shorts/Reels)</span>
               </button>
               <button
                 type="button"
                 onClick={() => setFormat('landscape')}
-                className={`w-full text-left px-3 py-2 rounded text-xs font-medium border transition-colors ${
+                className={`w-full text-left px-3 py-2 rounded text-xs font-medium border transition-colors flex items-center gap-2 cursor-pointer ${
                   format === 'landscape' ? 'bg-purple-950/50 border-purple-500 text-purple-200' : 'bg-white/[0.02] border-white/[0.06] text-slate-400 hover:text-slate-200'
                 }`}
               >
-                🖥️ 16:9 Landscape (YouTube)
+                <svg className="w-3.5 h-3.5 text-cyan-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                  <line x1="8" y1="21" x2="16" y2="21"></line>
+                  <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+                <span>16:9 Landscape (YouTube)</span>
               </button>
             </div>
           </div>
@@ -154,7 +179,7 @@ export default function CommandBuilder() {
                   key={dur}
                   type="button"
                   onClick={() => setDuration(dur)}
-                  className={`py-2 rounded text-xs font-mono font-medium border text-center transition-colors ${
+                  className={`py-2 rounded text-xs font-mono font-medium border text-center transition-colors cursor-pointer ${
                     duration === dur ? 'bg-purple-950/50 border-purple-500 text-purple-200' : 'bg-white/[0.02] border-white/[0.06] text-slate-400 hover:text-slate-200'
                   }`}
                 >
@@ -177,12 +202,14 @@ export default function CommandBuilder() {
           >
             {copied ? (
               <>
-                <span>✓</span>
+                <svg className="w-3.5 h-3.5 text-emerald-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
                 <span>Copied to Clipboard</span>
               </>
             ) : (
               <>
-                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                   <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                 </svg>

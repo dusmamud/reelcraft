@@ -11,6 +11,13 @@ env/
 
 # Build & temporary test caches
 /temp/
+.astro/
+dist/
+
+# Environment files
+.env
+.env.*
+!.env.example
 
 # Logs
 *.log
