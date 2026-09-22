@@ -26,6 +26,7 @@
   <a href="#"><img src="https://img.shields.io/badge/Test%20Suites-5%20Rendered%20Videos-blueviolet.svg" alt="Test Suites"></a>
   <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome"></a>
   <a href="https://github.com/dusmamud"><img src="https://img.shields.io/badge/Author-Dus%20Mamud-orange.svg" alt="Author: Dus Mamud"></a>
+  <a href="https://hashnode.com/@dusmamud"><img src="https://img.shields.io/badge/Blog-Hashnode-2962FF.svg?logo=hashnode&logoColor=white" alt="Blog on Hashnode"></a>
 </p>
 
 <p align="center">
