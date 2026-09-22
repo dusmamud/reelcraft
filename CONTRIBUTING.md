@@ -110,6 +110,14 @@ cd ..
 
 ---
 
+## 💬 Community Discussions & Q&A
+
+Have questions about video templates, custom audio, or CI/CD pipelines?
+- Join the conversations on [GitHub Discussions](https://github.com/dusmamud/reelcraft/discussions).
+- Check answered Q&As for common recipes (like audio flags, mobile safe-zones, and headless rendering).
+
+---
+
 ## 📄 Licensing
 
 By contributing to Reelcraft, you agree that your contributions will be licensed under the project's [MIT License](LICENSE).
