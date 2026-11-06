@@ -395,3 +395,5 @@ Reelcraft is an open-source project welcoming developers, designers, and AI crea
 ## 📄 License
 
 Released under the [MIT License](LICENSE) • Built for the modern AI and developer community.
+
+> Note: Reelcraft renders 9:16 vertical reels at 60fps.
