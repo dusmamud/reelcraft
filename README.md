@@ -405,3 +405,4 @@ Released under the [MIT License](LICENSE) • Built for the modern AI and develo
 > Tip: Use `--no-music` to disable the background soundtrack and `--no-sfx` to disable the UI sound-effects suite (clicks, impacts, keystrokes).
 > Tip: Run `npx reelcraft lint reel-output/composition` before rendering — it catches audio and layout issues in under 50ms, before any rendering compute is spent.
 > Tip: Run `npx reelcraft doctor` first if a render fails — it verifies Node.js, HyperFrames CLI, Python, Kokoro TTS, Edge-TTS, and Chromium in one pass.
+> Tip: Every run also writes `captions.txt` — ready-to-publish social copy with 15 targeted hashtags — alongside the MP4, poster, storyboard, and composition source in `reel-output/`.
