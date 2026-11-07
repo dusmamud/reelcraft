@@ -404,3 +404,4 @@ Released under the [MIT License](LICENSE) • Built for the modern AI and develo
 > Tip: Pass `--duration 30` (range 15 to 30 seconds, default 20s) when you need a longer reel, e.g. `/reelcraft --tone paper-and-ink --format vertical --duration 30`.
 > Tip: Use `--no-music` to disable the background soundtrack and `--no-sfx` to disable the UI sound-effects suite (clicks, impacts, keystrokes).
 > Tip: Run `npx reelcraft lint reel-output/composition` before rendering — it catches audio and layout issues in under 50ms, before any rendering compute is spent.
+> Tip: Run `npx reelcraft doctor` first if a render fails — it verifies Node.js, HyperFrames CLI, Python, Kokoro TTS, Edge-TTS, and Chromium in one pass.
