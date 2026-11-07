@@ -402,3 +402,4 @@ Released under the [MIT License](LICENSE) • Built for the modern AI and develo
 > Tip: Use `--tone cyberpunk` (or `luminous`, `paper-and-ink`, `terminal-hacker`, `apple-minimal`, `unhinged`) to set the visual aesthetic and motion rhythm; the tone is auto-detected from your project theme when you omit it.
 > Tip: Add `--voice` for studio AI narration (Kokoro-82M English by default), and `--voice --lang hindi` for native Hindi/Hinglish voiceover via Edge-TTS.
 > Tip: Pass `--duration 30` (range 15 to 30 seconds, default 20s) when you need a longer reel, e.g. `/reelcraft --tone paper-and-ink --format vertical --duration 30`.
+> Tip: Use `--no-music` to disable the background soundtrack and `--no-sfx` to disable the UI sound-effects suite (clicks, impacts, keystrokes).
