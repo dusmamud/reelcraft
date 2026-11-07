@@ -401,3 +401,4 @@ Released under the [MIT License](LICENSE) • Built for the modern AI and develo
 > Tip: Preview the reel in the local showcase before rendering it.
 > Tip: Use `--tone cyberpunk` (or `luminous`, `paper-and-ink`, `terminal-hacker`, `apple-minimal`, `unhinged`) to set the visual aesthetic and motion rhythm; the tone is auto-detected from your project theme when you omit it.
 > Tip: Add `--voice` for studio AI narration (Kokoro-82M English by default), and `--voice --lang hindi` for native Hindi/Hinglish voiceover via Edge-TTS.
+> Tip: Pass `--duration 30` (range 15 to 30 seconds, default 20s) when you need a longer reel, e.g. `/reelcraft --tone paper-and-ink --format vertical --duration 30`.
