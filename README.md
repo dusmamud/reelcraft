@@ -399,3 +399,4 @@ Released under the [MIT License](LICENSE) • Built for the modern AI and develo
 > Note: Reelcraft renders 9:16 vertical reels at 60fps.
 
 > Tip: Preview the reel in the local showcase before rendering it.
+> Tip: Use `--tone cyberpunk` (or `luminous`, `paper-and-ink`, `terminal-hacker`, `apple-minimal`, `unhinged`) to set the visual aesthetic and motion rhythm; the tone is auto-detected from your project theme when you omit it.
