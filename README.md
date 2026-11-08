@@ -407,3 +407,4 @@ Released under the [MIT License](LICENSE) • Built for the modern AI and develo
 > Tip: Run `npx reelcraft doctor` first if a render fails — it verifies Node.js, HyperFrames CLI, Python, Kokoro TTS, Edge-TTS, and Chromium in one pass.
 > Tip: Every run also writes `captions.txt` — ready-to-publish social copy with 15 targeted hashtags — alongside the MP4, poster, storyboard, and composition source in `reel-output/`.
 > Tip: Every run writes `reel-plan.md` with the 4-beat storyboard, timestamps, and voiceover script, so you can review the hook, mechanism, demo, and CTA before watching the video.
+> Tip: Every run also writes a Frame-1 poster JPG — a high-CTR thumbnail for the video, alongside the captions and hashtags.
