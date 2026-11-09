@@ -408,3 +408,4 @@ Released under the [MIT License](LICENSE) • Built for the modern AI and develo
 > Tip: Every run also writes `captions.txt` — ready-to-publish social copy with 15 targeted hashtags — alongside the MP4, poster, storyboard, and composition source in `reel-output/`.
 > Tip: Every run writes `reel-plan.md` with the 4-beat storyboard, timestamps, and voiceover script, so you can review the hook, mechanism, demo, and CTA before watching the video.
 > Tip: Every run also writes a Frame-1 poster JPG — a high-CTR thumbnail for the video, alongside the captions and hashtags.
+> Tip: Text stays inside the 100% mobile safe-zones (--safe-top: 140px, --safe-bottom: 280px, --safe-right: 160px), so Instagram/TikTok like buttons and comment inputs never cover your typography.
